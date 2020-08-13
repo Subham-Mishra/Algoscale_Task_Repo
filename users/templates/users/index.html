@@ -160,10 +160,17 @@
 
     {% block content %}
         
+    
+    <div class='text-center' style="margin-top: 25%;">
+        <div class="container my-5">
+            {% if user.is_authenticated %}
+            <p>Hey {{ request.user }}</p>
+            {% else %}
+            <p>Please Login to view your Profile and other details</p>
+            {% endif %}
+        </div>
+    </div>
     {% endblock content %}
-        
-
-
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
