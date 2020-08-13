@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ouro | Jewellery Collections</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Actor" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+SC" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" />
+    <link rel="stylesheet" href="{% static '\root\css\styles.css' %}" />
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- Start: Navigation with Search -->
+        <nav class="navbar mt-0 pt-0 fixed-top"
+            style="font-size:14px;background-color: white; border-bottom: 1px solid rgba(168,160,160,0.29);height: 28px;">
+            <div class="container">
+                <span id="loc" style="opacity: 0.7;">Location: Bhubaneshwar</span>
+                <span id="contact" style="opacity: 0.7;margin-right: 9px;">Contact No: +1-315-255-6235</span>
+            </div>
+        </nav>
+        <nav class="navbar navbar-light navbar-expand-lg navigation-clean-search fixed-top"
+            style="background-color: white; opacity: 1;margin-top: 28px;" id="navbar">
+            <div class="container">
+                <a href="/" style="all: unset !important;cursor:pointer !important;">
+                    <h3 data-bs-hover-animate="pulse"
+                        style="color: #FF965A; font-family:'Segoe UI',serif;font-weight: bolder;" id="brand">
+                        Algoscale
+                    </h3>
+                </a>
+                <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item " role="presentation">
+                            <form class="search mt-2 mx-2"></button>
+                                <i class="fa fa-search" style="opacity: 0.6;"></i>
+                            </form>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" data-bs-hover-animate="pulse" href="/users/logout">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item" role="presentation">
+                            <a type="button" data-bs-hover-animate="pulse" class="btn btn-outline secondary"
+                                data-toggle="modal" data-target="#LoginModal">
+                                Login
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a type="button" data-bs-hover-animate="pulse" class="btn btn-outline secondary"
+                                data-toggle="modal" data-target="#registerModal">
+                                Sign-up
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="LoginModal"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="LoginModal">Login Here</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action='/users/login/' method="POST">
+                            {% csrf_token %}
+                            <div class="form-grp">
+                                <div class="form-group">
+                                    <input class="form-control item" type="text" name="user_name" id="usernamelgin"
+                                        placeholder='Username' required />
+                                </div>
+
+                                <div class="form-group">
+                                    <input class="form-control item" type="password" name="user_password"
+                                        id="user_password_lgin" placeholder='Password' required />
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-secondary btn-block">
+                                        Sign-In!
+                                    </button>
+                                </div>
+                                <br>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModal"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="registerModalTitle">Register Here</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action='/users/signup/' method="POST">
+                            {% csrf_token %}
+                            <div class="form-grp">
+                                <div class="form-group">
+                                    <input class="form-control item" name="user_name" type="text" id="usernamesignup"
+                                        placeholder='Username (Only Letters and Numbers allowed)' required />
+                                </div>
+
+                                <div class="form-group"><input class="form-control item" type="email" name="user_email"
+                                        id="email" placeholder='Email (name@domain.com)' required />
+                                </div>
+
+                                <div class="form-group"><input class="form-control item" type="text" name="fname"
+                                        id="fname" placeholder='First Name' required />
+                                </div>
+
+                                <div class="form-group"><input class="form-control item" type="text" name="lname"
+                                        id="lname" placeholder='Last Name' required />
+                                </div>
+
+                                <div class="form-group">
+                                    <input class="form-control item" type="password" name="user_password_1"
+                                        id="user_password_1" placeholder='Create Password' required />
+                                </div>
+                                <div class="form-group"><input class="form-control item" type="password"
+                                        name="user_password_2" id="user_password_2" placeholder='Confirm Password'
+                                        required />
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-outline-secondary btn-block">
+                                        Sign-Up !
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block content %}
+        
+    {% endblock content %}
+        
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    {% block js %} {% endblock %}
+</body>
+
+</html>
